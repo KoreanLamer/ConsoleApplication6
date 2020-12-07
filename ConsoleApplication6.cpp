@@ -27,7 +27,7 @@ struct List //Список.
 
 void output(List* begin);
 void create_list(List** begin, List** end);
-void add_begin(List** begin, List** end);
+void add_elem(List* begin, List* end);
 void defaultSort(List* begin);
 void sortPriceASC(List* begin);
 void sortPriceDES(List* begin);
@@ -61,7 +61,7 @@ int main()
         cout << "=======================================================================" << endl;
         cout << "Menu:" << endl;
         cout << "1- Create List." << endl;
-        cout << "2- Add element into begin ." << endl;
+        cout << "2- Add element before/after ." << endl;
         cout << "3- Print." << endl;
         cout << "4- Default sort." << endl;
         cout << "5- Sort price by ascending." << endl;
@@ -93,7 +93,7 @@ int main()
             
         case 2:
             system("cls");
-            add_begin(&begin, &end);
+            add_elem(&begin, &end);
             _getch();
             break;
 
@@ -241,52 +241,28 @@ void create_list(List** begin, List** end)
     (*end)->next = NULL;
 } 
 //добавление элементов
-void add_begin(List** begin, List** end)
+void add_elem(List* begin, List* end)
 {
-    if (!*begin)
+    int ch;
+    cout << "Choose 1-Before or 2-After" << endl;
+    cin >> ch;
+    if (ch == 1)
     {
-        *end = new List;
-        cout << "ID:";
-        cin >> (*end)->book.index;
-        cout << "Journal Name:";
-        cin >> (*end)->book.name;
-        cout << "Counts:";
-        cin >> (*end)->book.counts;
-        cout << "Period :";
-        cin >> (*end)->book.period;
-        cout << "Time:";
-        cin >> (*end)->book.time;
-        cout << "Price:";
-        cin >> (*end)->book.price;
-        cout << "Publisher:";
-        cin >> (*end)->book.publisher;
-        cout << "Priviliges:";
-        cin >> (*end)->book.priviliges;
-        (*end)->next = NULL;
-        *begin = *end;
-        return;
+        int id;
+        cout << "Before which id should add:";
+        cin >> id;
+
+        //TODO:
+        ыыы
     }
+    else
+    {
+        int id;
+        cout << "After which id should add:";
+        cin >> id;
 
-    List* n = new List;
-    cout << "ID:";
-    cin >> (*end)->book.index;
-    cout << "Journal Name:";
-    cin >> (*end)->book.name;
-    cout << "Counts:";
-    cin >> (*end)->book.counts;
-    cout << "Period :";
-    cin >> (*end)->book.period;
-    cout << "Time:";
-    cin >> (*end)->book.time;
-    cout << "Price:";
-    cin >> (*end)->book.price;
-    cout << "Publisher:";
-    cin >> (*end)->book.publisher;
-    cout << "Priviliges:";
-    cin >> (*end)->book.priviliges;
-
-    n->next = *begin;
-    *begin = n;
+        //TODO:
+    }
 }
 //вывод на экран
 void output(List* begin)
