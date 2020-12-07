@@ -253,7 +253,7 @@ void add_elem(List* begin, List* end)
         cin >> id;
 
         //TODO:
-        ыыы
+        
     }
     else
     {
