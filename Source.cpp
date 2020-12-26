@@ -1,20 +1,99 @@
 ﻿#include "Header.h"
 
+void init(List_elem*& begin, List_elem*& end, List_elem* new_elem)
+{
+    List_elem* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
+    begin = elem_to_add;
+    end = begin;
+}
 
-//добавление элементов
-void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem)
+void add_begin(List_elem*& begin, List_elem *&end, List_elem* new_elem)
 {
     List_elem* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
     if (!begin)
     {
-        begin = elem_to_add;
-        end = begin;
-        return;
+        init(begin, end, new_elem);
     }
-    end->next = elem_to_add;
-    end = end->next;
+    elem_to_add->next = begin;
+    begin = elem_to_add;
+    return;
 }
 
+void add_end(List_elem*& begin, List_elem*& end, List_elem* new_elem)
+{
+    List_elem* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
+    if (!begin)
+    {
+        init(begin, end, new_elem);
+    }
+    elem_to_add->next = nullptr;
+    end->next = elem_to_add;
+    end = end->next;
+    return;
+}
+//добавление элементов
+void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem, int id, char pos)
+{
+    List_elem* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
+    if (!begin)
+    {
+        init(begin, end, elem_to_add);
+    }
+    if (id == 0)
+    {
+        add_begin(begin, end, elem_to_add);
+        return;
+    }
+    if (id == -1)
+    {
+        add_end(begin, end, elem_to_add);
+        return;
+    }
+    if (id < 0)
+    {
+        cout << "BAD ID\n";
+        return;
+    }
+
+    List_elem* target_elem = begin;
+    int target_id = pos == '1' ? id - 1 : pos == '2' ? id : -100;
+    if (target_id == -100)
+    {
+        cout << "Bad pos\n";
+        return;
+    }
+    int curr_id = 0;
+    while (target_elem)
+    {
+        target_elem = target_elem->next;
+        ++curr_id;
+        if (curr_id == target_id)
+            break;
+    }
+    if (target_elem->next == nullptr)
+    {
+        add_end(begin, end, elem_to_add);
+        return;
+    }
+    elem_to_add->next = target_elem->next;
+    target_elem->next = elem_to_add;
+    
+}
+bool check_id(List_elem* begin, int id)
+{
+    int curr_id = 0;
+    List_elem* ptr = begin;
+    if (id < 0)
+        return false;
+    while (ptr)
+    {
+        ptr = ptr->next;
+        ++curr_id;
+        if (curr_id == id && ptr)
+            return true;
+    }
+    return false;
+}
 List_elem* create_elem()
 {
     List_elem* new_element = new List_elem;
@@ -46,12 +125,14 @@ void output(List_elem* begin)
     }
 
     List_elem* print = begin;
+    int index = 0;
 
     while (print)
     {
 
-        print_elem(print);
+        print_elem(print,index);
         print = print->next;
+        index++;
     }
 }
 //сохранить список
@@ -89,9 +170,10 @@ void save_f(List_elem* begin)
 }
 //загрузить список
 
-void print_elem(List_elem* tmp)
+void print_elem(List_elem* tmp, int index)
 {
     cout << "_____________________________" << endl;
+    cout << "Index: " << index << endl;
     cout << "|ID:" << tmp->jrnl.index << endl;
     cout << "|Name:" << tmp->jrnl.name << endl;
     cout << "|Counts:" << tmp->jrnl.counts << endl;
@@ -114,13 +196,13 @@ void load_f(List_elem*& begin, List_elem*& end)
         cout << "File doesn't exist " << endl;
         return;
     }
-
+    int index = 0;
     while (!fin.eof())
     {
         List_elem* tmp = read_elem(fin);
-        print_elem(tmp);
+        print_elem(tmp,index);
         add_elem(begin, end, tmp);
-
+        index++;
     }
 
 }
@@ -491,12 +573,12 @@ void update(List_elem* begin)
     int id;
     cout << "Which id you want update:";
     cin >> id;
-
+    int index = -1;
     while (ptr != nullptr)
     {
         if (ptr->jrnl.index == id)
         {
-            print_elem(ptr);
+            print_elem(ptr,index);
             cout << "ID:";
             cin >> ptr->jrnl.index;
             cout << "Journal Name:";

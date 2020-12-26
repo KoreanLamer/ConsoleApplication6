@@ -5,11 +5,11 @@
 
 
 
-
 int main()
 {
 
-   
+    List_elem* begin = nullptr;
+    List_elem* end = nullptr;
 
     int key;
 
@@ -47,10 +47,25 @@ int main()
         {
             
         case 1:
+        {
             system("cls");
-            add_elem(begin, end);
+            cout << "Choose id" << endl;
+            int id;
+            cin >> id;
+            if (check_id(begin, id))
+            {
+                cout << "1-Before 2-After" << endl;
+                char pos;
+                cin >> pos;
+                add_elem(begin, end, nullptr, id, pos);
+            }
+            else
+            {
+                cout << "Bad id\n";
+            }
             _getch();
-            break;
+            break; 
+        }
 
         case 2:
             system("cls");

@@ -26,13 +26,14 @@ struct List_elem //Список.
     Journal jrnl;
     List_elem* next;
 };
-List_elem* begin = nullptr;
-List_elem* end = nullptr;
-
+void init(List_elem*& begin, List_elem*& end, List_elem* new_elem);
+void add_begin(List_elem*& begin, List_elem*& end, List_elem* new_elem);
+void add_end(List_elem*& begin, List_elem*& end, List_elem* new_elem);
 void output(List_elem* begin);
 List_elem* create_elem();
-void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem = nullptr);
-void print_elem(List_elem* tmp);
+void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem = nullptr,int id=-1, char pos='0');
+bool check_id(List_elem* begin, int id);
+void print_elem(List_elem* tmp, int index);
 void defaultSort(List_elem* begin);
 void sortPriceASC(List_elem* begin);
 void sortPriceDES(List_elem* begin);
