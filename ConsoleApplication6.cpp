@@ -49,6 +49,11 @@ int main()
         case 1:
         {
             system("cls");
+            if (begin == nullptr)
+            {
+                init(begin, end, nullptr);
+                break;
+            }
             cout << "Choose id" << endl;
             int id;
             cin >> id;

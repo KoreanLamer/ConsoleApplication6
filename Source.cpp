@@ -39,6 +39,10 @@ void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem, int id, c
     {
         init(begin, end, elem_to_add);
     }
+    if (begin == nullptr)
+    {
+        init(begin, end, elem_to_add);
+    }
     if (id == 0)
     {
         add_begin(begin, end, elem_to_add);
