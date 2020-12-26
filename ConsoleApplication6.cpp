@@ -1,6 +1,5 @@
 ﻿
 #include "Header.h"
-#include "Source.cpp"
 
 
 
@@ -10,21 +9,19 @@
 int main()
 {
 
-    List* begin = nullptr;
-    List* end = nullptr;
+   
 
     int key;
 
     do
     {
-        // TODO: Clean create list fucntion
         system("cls");
         cout << "=======================================================================" << endl;
         cout << "|                      Welcome to electronic filing                   |"<< endl;
         cout << "|                          Make your choice                           |" << endl;
         cout << "=======================================================================" << endl;
         cout << "Menu:" << endl;
-        cout << "1- Add element before/after ." << endl;
+        cout << "1- Add element  ." << endl;
         cout << "2- Print." << endl;
         cout << "3- Default sort." << endl;
         cout << "4- Sort price by ascending." << endl;

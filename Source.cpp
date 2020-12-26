@@ -2,9 +2,9 @@
 
 
 //добавление элементов
-void add_elem(List*& begin, List*& end, List* new_elem)
+void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem)
 {
-    List* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
+    List_elem* elem_to_add = new_elem == nullptr ? create_elem() : new_elem;
     if (!begin)
     {
         begin = elem_to_add;
@@ -15,37 +15,37 @@ void add_elem(List*& begin, List*& end, List* new_elem)
     end = end->next;
 }
 
-List* create_elem()
+List_elem* create_elem()
 {
-    List* new_element = new List;
+    List_elem* new_element = new List_elem;
     cout << "ID:";
-    cin >> (new_element)->book.index;
+    cin >> (new_element)->jrnl.index;
     cout << "Journal Name:";
-    cin >> (new_element)->book.name;
+    cin >> (new_element)->jrnl.name;
     cout << "Counts:";
-    cin >> (new_element)->book.counts;
+    cin >> (new_element)->jrnl.counts;
     cout << "Period :";
-    cin >> (new_element)->book.period;
+    cin >> (new_element)->jrnl.period;
     cout << "Time:";
-    cin >> (new_element)->book.time;
+    cin >> (new_element)->jrnl.time;
     cout << "Price:";
-    cin >> (new_element)->book.price;
+    cin >> (new_element)->jrnl.price;
     cout << "Publisher:";
-    cin >> (new_element)->book.publisher;
+    cin >> (new_element)->jrnl.publisher;
     cout << "Priviliges:";
-    cin >> (new_element)->book.priviliges;
+    cin >> (new_element)->jrnl.priviliges;
     (new_element)->next = nullptr;
     return new_element;
 };
 //вывод на экран
-void output(List* begin)
+void output(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
     }
 
-    List* print = begin;
+    List_elem* print = begin;
 
     while (print)
     {
@@ -55,7 +55,7 @@ void output(List* begin)
     }
 }
 //сохранить список
-void save_f(List* begin)
+void save_f(List_elem* begin)
 {
     string file_n;
     cout << "Write filename" << endl;
@@ -64,19 +64,19 @@ void save_f(List* begin)
 
     if (fout)
     {
-        List* tmp = begin;
+        List_elem* tmp = begin;
 
         while (tmp != nullptr)
         {
             char end_sym = tmp->next == nullptr ? '\0' : '\n';
-            fout << tmp->book.index << " ";
-            fout << tmp->book.name << " ";
-            fout << tmp->book.counts << " ";
-            fout << tmp->book.period << " ";
-            fout << tmp->book.time << " ";
-            fout << tmp->book.price << " ";
-            fout << tmp->book.publisher << " ";
-            fout << tmp->book.priviliges << end_sym;
+            fout << tmp->jrnl.index << " ";
+            fout << tmp->jrnl.name << " ";
+            fout << tmp->jrnl.counts << " ";
+            fout << tmp->jrnl.period << " ";
+            fout << tmp->jrnl.time << " ";
+            fout << tmp->jrnl.price << " ";
+            fout << tmp->jrnl.publisher << " ";
+            fout << tmp->jrnl.priviliges << end_sym;
 
             tmp = tmp->next;
         }
@@ -89,20 +89,20 @@ void save_f(List* begin)
 }
 //загрузить список
 
-void print_elem(List* tmp)
+void print_elem(List_elem* tmp)
 {
     cout << "_____________________________" << endl;
-    cout << "|ID:" << tmp->book.index << endl;
-    cout << "|Name:" << tmp->book.name << endl;
-    cout << "|Counts:" << tmp->book.counts << endl;
-    cout << "|Period:" << tmp->book.period << endl;
-    cout << "|Time:" << tmp->book.time << endl;
-    cout << "|Price:" << tmp->book.price << endl;
-    cout << "|Publisher:" << tmp->book.publisher << endl;
-    cout << "|Priviliges:" << tmp->book.priviliges << endl;
+    cout << "|ID:" << tmp->jrnl.index << endl;
+    cout << "|Name:" << tmp->jrnl.name << endl;
+    cout << "|Counts:" << tmp->jrnl.counts << endl;
+    cout << "|Period:" << tmp->jrnl.period << endl;
+    cout << "|Time:" << tmp->jrnl.time << endl;
+    cout << "|Price:" << tmp->jrnl.price << endl;
+    cout << "|Publisher:" << tmp->jrnl.publisher << endl;
+    cout << "|Priviliges:" << tmp->jrnl.priviliges << endl;
     cout << "|____________________________" << endl;
 }
-void load_f(List*& begin, List*& end)
+void load_f(List_elem*& begin, List_elem*& end)
 {
     ifstream fin;
     cout << "Choose file:" << endl;
@@ -117,7 +117,7 @@ void load_f(List*& begin, List*& end)
 
     while (!fin.eof())
     {
-        List* tmp = read_elem(fin);
+        List_elem* tmp = read_elem(fin);
         print_elem(tmp);
         add_elem(begin, end, tmp);
 
@@ -125,44 +125,44 @@ void load_f(List*& begin, List*& end)
 
 }
 
-List* read_elem(ifstream& fin)
+List_elem* read_elem(ifstream& fin)
 {
-    List* tmp = new List;
-    fin >> tmp->book.index;
-    fin >> tmp->book.name;
-    fin >> tmp->book.counts;
-    fin >> tmp->book.period;
-    fin >> tmp->book.time;
-    fin >> tmp->book.price;
-    fin >> tmp->book.publisher;
-    fin >> tmp->book.priviliges;
+    List_elem* tmp = new List_elem;
+    fin >> tmp->jrnl.index;
+    fin >> tmp->jrnl.name;
+    fin >> tmp->jrnl.counts;
+    fin >> tmp->jrnl.period;
+    fin >> tmp->jrnl.time;
+    fin >> tmp->jrnl.price;
+    fin >> tmp->jrnl.publisher;
+    fin >> tmp->jrnl.priviliges;
     tmp->next = nullptr;
     return tmp;
 }
 
 //поиск по имени
-void showAllByName(List* begin)
+void showAllByName(List_elem* begin)
 {
     string Letter;
 
     cout << "Input Search Name:" << endl;
     cin >> Letter;
 
-    List* ptr = begin;
+    List_elem* ptr = begin;
 
-    while (ptr != NULL)
+    while (ptr != nullptr)
     {
-        if (ptr->book.name == Letter)
+        if (ptr->jrnl.name == Letter)
         {
             cout << " _____________________________" << endl;
-            cout << "|ID:" << ptr->book.index << endl;
-            cout << "|Name:" << ptr->book.name << endl;
-            cout << "|Counts:" << ptr->book.counts << endl;
-            cout << "|Period:" << ptr->book.period << endl;
-            cout << "|Time:" << ptr->book.time << endl;
-            cout << "|Price:" << ptr->book.price << "$" << endl;
-            cout << "|Publisher:" << ptr->book.publisher << endl;
-            cout << "|Priviliges:" << ptr->book.priviliges << endl;
+            cout << "|ID:" << ptr->jrnl.index << endl;
+            cout << "|Name:" << ptr->jrnl.name << endl;
+            cout << "|Counts:" << ptr->jrnl.counts << endl;
+            cout << "|Period:" << ptr->jrnl.period << endl;
+            cout << "|Time:" << ptr->jrnl.time << endl;
+            cout << "|Price:" << ptr->jrnl.price << "$" << endl;
+            cout << "|Publisher:" << ptr->jrnl.publisher << endl;
+            cout << "|Priviliges:" << ptr->jrnl.priviliges << endl;
             cout << "|____________________________" << endl;
             cout << "\n";
         }
@@ -171,28 +171,28 @@ void showAllByName(List* begin)
     }
 }
 //поиск по льготам
-void showAllByPriviliges(List* begin)
+void showAllByPriviliges(List_elem* begin)
 {
     string Letter;
 
     cout << "Input Search Name:" << endl;
     cin >> Letter;
 
-    List* ptr = begin;
+    List_elem* ptr = begin;
 
-    while (ptr != NULL)
+    while (ptr != nullptr)
     {
-        if (ptr->book.priviliges == Letter)
+        if (ptr->jrnl.priviliges == Letter)
         {
             cout << " _____________________________" << endl;
-            cout << "|ID:" << ptr->book.index << endl;
-            cout << "|Name:" << ptr->book.name << endl;
-            cout << "|Counts:" << ptr->book.counts << endl;
-            cout << "|Period:" << ptr->book.period << endl;
-            cout << "|Time:" << ptr->book.time << endl;
-            cout << "|Price:" << ptr->book.price << "$" << endl;
-            cout << "|Publisher:" << ptr->book.publisher << endl;
-            cout << "|Priviliges:" << ptr->book.priviliges << endl;
+            cout << "|ID:" << ptr->jrnl.index << endl;
+            cout << "|Name:" << ptr->jrnl.name << endl;
+            cout << "|Counts:" << ptr->jrnl.counts << endl;
+            cout << "|Period:" << ptr->jrnl.period << endl;
+            cout << "|Time:" << ptr->jrnl.time << endl;
+            cout << "|Price:" << ptr->jrnl.price << "$" << endl;
+            cout << "|Publisher:" << ptr->jrnl.publisher << endl;
+            cout << "|Priviliges:" << ptr->jrnl.priviliges << endl;
             cout << "|____________________________" << endl;
             cout << "\n";
         }
@@ -201,28 +201,28 @@ void showAllByPriviliges(List* begin)
     }
 }
 //поиск по издателю
-void showAllByPublisher(List* begin)
+void showAllByPublisher(List_elem* begin)
 {
     string Letter;
 
     cout << "Input Search Name:" << endl;
     cin >> Letter;
 
-    List* ptr = begin;
+    List_elem* ptr = begin;
 
-    while (ptr != NULL)
+    while (ptr != nullptr)
     {
-        if (ptr->book.publisher == Letter)
+        if (ptr->jrnl.publisher == Letter)
         {
             cout << " _____________________________" << endl;
-            cout << "|ID:" << ptr->book.index << endl;
-            cout << "|Name:" << ptr->book.name << endl;
-            cout << "|Counts:" << ptr->book.counts << endl;
-            cout << "|Period:" << ptr->book.period << endl;
-            cout << "|Time:" << ptr->book.time << endl;
-            cout << "|Price:" << ptr->book.price << "$" << endl;
-            cout << "|Publisher:" << ptr->book.publisher << endl;
-            cout << "|Priviliges:" << ptr->book.priviliges << endl;
+            cout << "|ID:" << ptr->jrnl.index << endl;
+            cout << "|Name:" << ptr->jrnl.name << endl;
+            cout << "|Counts:" << ptr->jrnl.counts << endl;
+            cout << "|Period:" << ptr->jrnl.period << endl;
+            cout << "|Time:" << ptr->jrnl.time << endl;
+            cout << "|Price:" << ptr->jrnl.price << "$" << endl;
+            cout << "|Publisher:" << ptr->jrnl.publisher << endl;
+            cout << "|Priviliges:" << ptr->jrnl.priviliges << endl;
             cout << "|____________________________" << endl;
             cout << "\n";
         }
@@ -231,27 +231,27 @@ void showAllByPublisher(List* begin)
     }
 }
 //стандартный вид списка
-void defaultSort(List* begin)
+void defaultSort(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.index > ptr->next->book.index)
+            if (ptr->jrnl.index > ptr->next->jrnl.index)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -261,27 +261,31 @@ void defaultSort(List* begin)
     }
 }
 //сортировать цену по возрастанию
-void sortPriceASC(List* begin)
+
+//TODO Fix sort functions 
+// Use ptrN in sort func make 10 journals with different values
+
+void sortPriceASC(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.price < ptr->next->book.price)
+            if (ptr->jrnl.price > ptr->next->jrnl.price)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -291,27 +295,27 @@ void sortPriceASC(List* begin)
     }
 }
 //сортировать цену по убыванию
-void sortPriceDES(List* begin)
+void sortPriceDES(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.price > ptr->next->book.price)
+            if (ptr->jrnl.price < ptr->next->jrnl.price)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -321,27 +325,27 @@ void sortPriceDES(List* begin)
     }
 }
 //сортировать тираж по возрастанию
-void sortCountASC(List* begin)
+void sortCountASC(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.counts < ptr->next->book.counts)
+            if (ptr->jrnl.counts > ptr->next->jrnl.counts)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -351,27 +355,27 @@ void sortCountASC(List* begin)
     }
 }
 //сортировать тираж по убыванию
-void sortCountDES(List* begin)
+void sortCountDES(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.counts > ptr->next->book.counts)
+            if (ptr->jrnl.counts < ptr->next->jrnl.counts)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -381,27 +385,27 @@ void sortCountDES(List* begin)
     }
 }
 //сортировать имя по возрастанию
-void sortNameASC(List* begin)
+void sortNameASC(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.name < ptr->next->book.name)
+            if (ptr->jrnl.name > ptr->next->jrnl.name)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -411,27 +415,27 @@ void sortNameASC(List* begin)
     }
 }
 //сортировать имя по убыванию
-void sortNameDES(List* begin)
+void sortNameDES(List_elem* begin)
 {
     if (!begin)
     {
-        cout << "List empty." << endl;
+        cout << "List_elem empty." << endl;
 
         return;
     }
-    List* ptrN = begin;
+    List_elem* ptrN = begin;
 
-    while (ptrN->next != NULL)
+    while (ptrN->next != nullptr)
     {
-        List* ptr = begin;
+        List_elem* ptr = begin;
 
-        while (ptr->next != NULL)
+        while (ptr->next != nullptr)
         {
-            if (ptr->book.name > ptr->next->book.name)
+            if (ptr->jrnl.name < ptr->next->jrnl.name)
             {
-                Book tmp = ptr->book;
-                ptr->book = ptr->next->book;
-                ptr->next->book = tmp;
+                Journal tmp = ptr->jrnl;
+                ptr->jrnl = ptr->next->jrnl;
+                ptr->next->jrnl = tmp;
             }
 
             ptr = ptr->next;
@@ -441,34 +445,34 @@ void sortNameDES(List* begin)
     }
 }
 //удалить элемент
-void remove(List** begin, List** end)
+void remove(List_elem** begin, List_elem** end)
 {
-    List* ptr = *begin;
-    List* previous = *begin;
+    List_elem* ptr = *begin;
+    List_elem* previous = *begin;
 
     int id;
 
     cout << "Which id you want delete:";
     cin >> id;
 
-    while (ptr != NULL)
+    while (ptr != nullptr)
     {
-        if (ptr->book.index == id)
+        if (ptr->jrnl.index == id)
         {
             if (ptr == *begin)
             {
                 *begin = ptr->next;
             }
-            if (ptr->next == NULL)
+            if (ptr->next == nullptr)
             {
                 *end = previous;
             }
-            if (begin == NULL)
+            if (begin == nullptr)
             {
-                end = NULL;
+                end = nullptr;
             }
 
-            List* following = ptr->next;
+            List_elem* following = ptr->next;
             previous->next = following;
             delete ptr;
 
@@ -480,34 +484,35 @@ void remove(List** begin, List** end)
     }
 }
 //обновить элемент
-void update(List* begin)
+void update(List_elem* begin)
 {
-    List* ptr = begin;
+    List_elem* ptr = begin;
 
     int id;
     cout << "Which id you want update:";
     cin >> id;
 
-    while (ptr != NULL)
+    while (ptr != nullptr)
     {
-        if (ptr->book.index == id)
+        if (ptr->jrnl.index == id)
         {
+            print_elem(ptr);
             cout << "ID:";
-            cin >> ptr->book.index;
+            cin >> ptr->jrnl.index;
             cout << "Journal Name:";
-            cin >> ptr->book.name;
+            cin >> ptr->jrnl.name;
             cout << "Counts:";
-            cin >> ptr->book.counts;
+            cin >> ptr->jrnl.counts;
             cout << "Period of subs:";
-            cin >> ptr->book.period;
+            cin >> ptr->jrnl.period;
             cout << "Time:";
-            cin >> ptr->book.time;
+            cin >> ptr->jrnl.time;
             cout << "Price:";
-            cin >> ptr->book.price;
+            cin >> ptr->jrnl.price;
             cout << "Publisher:";
-            cin >> ptr->book.publisher;
+            cin >> ptr->jrnl.publisher;
             cout << "Priviligies:";
-            cin >> ptr->book.priviliges;
+            cin >> ptr->jrnl.priviliges;
         }
 
         ptr = ptr->next;

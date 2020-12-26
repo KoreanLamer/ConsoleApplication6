@@ -9,7 +9,7 @@
 using namespace std;
 
 
-struct Book
+struct Journal
 {
     int index; // Номер в справочнике
     string name; // Название книги
@@ -20,31 +20,33 @@ struct Book
     string publisher; // издатель
     string priviliges; // льготы
 };
-
-struct List //Список.
+//TODO fix structs names
+struct List_elem //Список.
 {
-    Book book;
-    List* next;
+    Journal jrnl;
+    List_elem* next;
 };
+List_elem* begin = nullptr;
+List_elem* end = nullptr;
 
-void output(List* begin);
-List* create_elem();
-void add_elem(List*& begin, List*& end, List* new_elem = nullptr);
-void print_elem(List* tmp);
-void defaultSort(List* begin);
-void sortPriceASC(List* begin);
-void sortPriceDES(List* begin);
-void sortCountASC(List* begin);
-void sortCountDES(List* begin);
-void sortNameASC(List* begin);
-void sortNameDES(List* begin);
-void showAllByName(List* begin);
-void showAllByPublisher(List* begin);
-void showAllByPriviliges(List* begin);
-void remove(List** begin, List** end);
-void update(List* begin);
-void save_f(List* begin);
-void load_f(List*& begin, List*& end);
-List* read_elem(ifstream& fin);
+void output(List_elem* begin);
+List_elem* create_elem();
+void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem = nullptr);
+void print_elem(List_elem* tmp);
+void defaultSort(List_elem* begin);
+void sortPriceASC(List_elem* begin);
+void sortPriceDES(List_elem* begin);
+void sortCountASC(List_elem* begin);
+void sortCountDES(List_elem* begin);
+void sortNameASC(List_elem* begin);
+void sortNameDES(List_elem* begin);
+void showAllByName(List_elem* begin);
+void showAllByPublisher(List_elem* begin);
+void showAllByPriviliges(List_elem* begin);
+void remove(List_elem** begin, List_elem** end);
+void update(List_elem* begin);
+void save_f(List_elem* begin);
+void load_f(List_elem*& begin, List_elem*& end);
+List_elem* read_elem(ifstream& fin);
 
 #endif /* Header_h */
