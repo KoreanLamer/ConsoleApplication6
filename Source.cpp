@@ -39,10 +39,6 @@ void add_elem(List_elem*& begin, List_elem*& end, List_elem* new_elem, int id, c
     {
         init(begin, end, elem_to_add);
     }
-    if (begin == nullptr)
-    {
-        init(begin, end, elem_to_add);
-    }
     if (id == 0)
     {
         add_begin(begin, end, elem_to_add);
@@ -289,6 +285,11 @@ void showAllByPriviliges(List_elem* begin)
 //поиск по издателю
 void showAllByPublisher(List_elem* begin)
 {
+    struct New_List_Elem
+    {
+        Journal jrnl;
+        New_List_Elem* next;
+    };
     string Letter;
 
     cout << "Input Search Name:" << endl;
@@ -300,6 +301,8 @@ void showAllByPublisher(List_elem* begin)
     {
         if (ptr->jrnl.publisher == Letter)
         {
+
+            // код для копирования в новый список
             cout << " _____________________________" << endl;
             cout << "|ID:" << ptr->jrnl.index << endl;
             cout << "|Name:" << ptr->jrnl.name << endl;
@@ -348,9 +351,6 @@ void defaultSort(List_elem* begin)
 }
 //сортировать цену по возрастанию
 
-//TODO Fix sort functions 
-// Use ptrN in sort func make 10 journals with different values
-
 void sortPriceASC(List_elem* begin)
 {
     if (!begin)
@@ -389,9 +389,9 @@ void sortPriceDES(List_elem* begin)
 
         return;
     }
-    List_elem* ptrN = begin;
+    List_elem* ptrP = begin;
 
-    while (ptrN->next != nullptr)
+    while (ptrP->next != nullptr)
     {
         List_elem* ptr = begin;
 
@@ -407,7 +407,7 @@ void sortPriceDES(List_elem* begin)
             ptr = ptr->next;
         }
 
-        ptrN = ptrN->next;
+        ptrP = ptrP->next;
     }
 }
 //сортировать тираж по возрастанию

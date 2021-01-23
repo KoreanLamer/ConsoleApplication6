@@ -20,12 +20,17 @@ struct Journal
     string publisher; // издатель
     string priviliges; // льготы
 };
-//TODO fix structs names
 struct List_elem //Список.
 {
     Journal jrnl;
     List_elem* next;
 };
+struct New_List_Elem
+{
+    Journal jrnl;
+    New_List_Elem* next;
+};
+
 void init(List_elem*& begin, List_elem*& end, List_elem* new_elem);
 void add_begin(List_elem*& begin, List_elem*& end, List_elem* new_elem);
 void add_end(List_elem*& begin, List_elem*& end, List_elem* new_elem);

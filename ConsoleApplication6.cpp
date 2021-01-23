@@ -21,7 +21,7 @@ int main()
         cout << "|                          Make your choice                           |" << endl;
         cout << "=======================================================================" << endl;
         cout << "Menu:" << endl;
-        cout << "1- Add element  ." << endl;
+        cout << "1- Add element." << endl;
         cout << "2- Print." << endl;
         cout << "3- Default sort." << endl;
         cout << "4- Sort price by ascending." << endl;
